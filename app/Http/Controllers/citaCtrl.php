@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\servicio;
+use App\Models\cita;
 use Illuminate\Http\Request;
 
-class servicioCtrl extends Controller
+class citaCtrl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class servicioCtrl extends Controller
      */
     public function create()
     {
-        return view('newServicio');
+        //
     }
 
     /**

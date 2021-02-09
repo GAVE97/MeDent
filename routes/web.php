@@ -17,7 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('Servicios', 'servicioCtrl');
+Route::resource('Servicios', App\Http\Controllers\servicioCtrl::class);
+Route::resource('Equipos', App\Http\Controllers\equipoCtrl::class);
+Route::resource('Insumos', App\Http\Controllers\insumoCtrl::class);
+Route::resource('Citas', App\Http\Controllers\citaCtrl::class);
 
 Auth::routes();
 
