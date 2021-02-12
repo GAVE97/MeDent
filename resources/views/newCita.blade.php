@@ -1,39 +1,36 @@
 @extends('layouts.appComun')
 @section('title', 'Agregar servicio')
 
+@section('scripts')
+
+@endsection
 @section('content')
 
 <!-- INDICACIONES DE LA VISTA-->
 <div class="container-sm alert alert-primary" role="alert">
-  <h4 class="alert-heading">AÑADIR UN NUEVO SERVICIO DENTAL</h4>
-  <p> EN esta seccion se deberan agregar los datos de un servicio nuevo que se ofresca a los pacientes</p>
+  <h4 class="alert-heading">Agendar una cita</h4>
+  <p> Usted puede agendar su propia cita en los dias y horarios disponibles</p>
   <hr>
   <p class="mb-0"> ¡Sea cuidadoso! verifique los datos antes de guardar.</p>
 </div>
 
 <!-- Formulario para agregar equipo -->
-<form class="form-group" method="POST" action="/Servicios" enctype="multipart/form-data">
+<form class="form-group" method="POST" action="/Citas" enctype="multipart/form-data">
 @csrf
 
 <!-- Información del equipo-->
 <div class="container-sm">
     
     <div class="col"> 
-        <label class="mt-2">Nombre del servicio</label>
-        <input type="string" name="ID_inventario" pattern="[A-Z a-z 0-9 áéíóúÑñüäàè\s]*" class="form-control" placeholder="Número de identificación de inventario" required>
+        <label class="mt-2">Nombre del paciente</label>
+        <input type="string" name="Paciente" pattern="[A-Z a-z 0-9 áéíóúÑñüäàè\s]*" class="form-control" placeholder="Coloque su nombre completo pra identificarlo en su cita" required>
 
-        <label class="mt-2">Descripción</label>
-        <input type="string" name="Nombre" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Nombre del equipo" required>
+        <label class="mt-2">Razon de la cita</label>
+        <input type="string" name="Tipo_de_cita" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Consulta, caries, extracción" required>
         
-        <label class="mt-2">Precio</label>
-        <input type="string" name="Area" pattern="[0-9]"  class="form-control" placeholder="Área de asignada para el equipo" required>
-        
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto" aling="text-center"><br/>
-                <label>Imagen del servicio</label> <br/>
-                <input type="file" name="imagenEquipo" required><br/><br/>
-            </div>           
-        </div>
+        <label class="mt-2">Fecha y hora</label>
+        <input size="16" name="Fecha" type="datetime-local" class="form-control" required>
+        <br/><br/><br/>
         <!-- Guardado de imagen del equipo -->
         <div class="row justify-content-md-center">
             <div class="col-md-auto" aling="text-center">

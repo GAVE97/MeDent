@@ -36,6 +36,7 @@
                 </div>
             @endif
             <!-- aqui va la secion de promocion de los servicios-->
+            <h1>MeDent</h1>
         </div>
     </body>
 </html>

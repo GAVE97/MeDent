@@ -14,7 +14,8 @@ class servicioCtrl extends Controller
      */
     public function index()
     {
-        //
+        $Servicios=servicio::all();
+        return view('showServicio', compact('Servicios'));
     }
 
     /**
@@ -35,7 +36,20 @@ class servicioCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('imagenServicio')){
+            $file = $request->file('imagenServicio');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/imgSrv/', $name);
+        }
+            $newServicio = new servicio();
+            $newServicio->Mnto = $request->input('Mnto');
+            $newServicio->porcentUso = $request->input('porcentUso');
+            $newServicio->prioridad = $request->input('prioridad');//gregarlo como boton en el frm y como campo en elmigration
+            $newServicio->imagenServicio = $name;
+            $newServicio->save();
+
+        $Equipos = Equipo::all();
+        return view('Nav.Navegacion');
     }
 
     /**

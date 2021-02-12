@@ -14,7 +14,8 @@ class equipoCtrl extends Controller
      */
     public function index()
     {
-        //
+        $Equipos=equipo::all();
+        return view('showEquipo', compact('Equipos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class equipoCtrl extends Controller
      */
     public function create()
     {
-        //
+        return view('newEquipo');
     }
 
     /**
@@ -35,7 +36,20 @@ class equipoCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('imagenEquipo')){
+            $file = $request->file('imagenEquipo');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/imgSrv/', $name);
+        }
+            $newEquipo = new equipo();
+            $newEquipo->Mnto = $request->input('Mnto');
+            $newEquipo->porcentUso = $request->input('porcentUso');
+            $newEquipo->prioridad = $request->input('prioridad');//gregarlo como boton en el frm y como campo en elmigration
+            $newEquipo->imagenEquipo = $name;
+            $newEquipo->save();
+
+        $Equipos = Equipo::all();
+        return view('Nav.Navegacion');
     }
 
     /**

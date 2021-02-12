@@ -14,7 +14,8 @@ class insumoCtrl extends Controller
      */
     public function index()
     {
-        //
+        $Insumos=insumo::all();
+        return view('showInsumo', compact('Insumos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class insumoCtrl extends Controller
      */
     public function create()
     {
-        //
+        return view('newInsumo');
     }
 
     /**
@@ -35,7 +36,20 @@ class insumoCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('imagenInsumo')){
+            $file = $request->file('imagenInsumo');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/imgSrv/', $name);
+        }
+            $newInsumo = new insumo();
+            $newInsumo->Mnto = $request->input('Mnto');
+            $newInsumo->porcentUso = $request->input('porcentUso');
+            $newInsumo->prioridad = $request->input('prioridad');//gregarlo como boton en el frm y como campo en elmigration
+            $newInsumo->imagenInsumo = $name;
+            $newInsumo->save();
+
+        $Equipos = Equipo::all();
+        return view('Nav.Navegacion');
     }
 
     /**

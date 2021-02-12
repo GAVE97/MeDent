@@ -36,7 +36,7 @@
         </div>
         <!-- Guardado de imagen del equipo -->
         <div class="row justify-content-md-center">
-            <div class="col-md-auto" aling="text-center">
+            <div class="col-md-auto"  >
                 <button type="submit" class="btn btn-primary">Guardar</button>   
             </div>           
         </div>

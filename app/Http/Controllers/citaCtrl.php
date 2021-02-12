@@ -14,7 +14,8 @@ class citaCtrl extends Controller
      */
     public function index()
     {
-        //
+        $Citas=cita::all();
+        return view('showCita', compact('Citas'));
     }
 
     /**
@@ -24,7 +25,7 @@ class citaCtrl extends Controller
      */
     public function create()
     {
-        //
+        return view('newCita');
     }
 
     /**
@@ -35,7 +36,13 @@ class citaCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $newCita = new cita();
+        $newCita->Paciente = $request->input('Paciente');
+        $newCita->Tipo_de_cita = $request->input('Tipo_de_cita');
+        $newCita->Fecha = $request->input('Fecha');
+        $newCita->save();
+        return view('welcome');
     }
 
     /**
