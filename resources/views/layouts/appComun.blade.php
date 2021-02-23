@@ -32,7 +32,7 @@
 
 	</head>
 
-		<body>
+  <body>
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -71,8 +71,10 @@
   </div>
 </nav>
 				
-			<main class="py-4">
-            	@yield('content')
-        	</main>
-        </body>
+    <main class="py-4">
+      <div class="container">
+            @yield('content')
+      </div>
+    </main>
+  </body>
 </html>

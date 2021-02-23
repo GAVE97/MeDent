@@ -15,7 +15,7 @@ class insumoCtrl extends Controller
     public function index()
     {
         $Insumos=insumo::all();
-        return view('showInsumo', compact('Insumos'));
+        return view('indexInsumo', compact('Insumos'));
     }
 
     /**
@@ -36,20 +36,14 @@ class insumoCtrl extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('imagenInsumo')){
-            $file = $request->file('imagenInsumo');
-            $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/imgSrv/', $name);
-        }
             $newInsumo = new insumo();
-            $newInsumo->Mnto = $request->input('Mnto');
-            $newInsumo->porcentUso = $request->input('porcentUso');
-            $newInsumo->prioridad = $request->input('prioridad');//gregarlo como boton en el frm y como campo en elmigration
-            $newInsumo->imagenInsumo = $name;
+            $newInsumo->Nombre = $request->input('Nombre');
+            $newInsumo->Tipo = $request->input('Tipo');
+            $newInsumo->Cantidad = $request->input('Cantidad');
+            $newInsumo->Caducidad = $request->input('Caducidad');
             $newInsumo->save();
 
-        $Equipos = Equipo::all();
-        return view('Nav.Navegacion');
+        return view('Nav');
     }
 
     /**
@@ -60,7 +54,8 @@ class insumoCtrl extends Controller
      */
     public function show($id)
     {
-        //
+        $Insumo=insumo::find($id);
+        return view('showInsumo', compact('Insumo'));
     }
 
     /**
@@ -71,7 +66,8 @@ class insumoCtrl extends Controller
      */
     public function edit($id)
     {
-        //
+        $Insumo=insumo::find($id);
+        return view('editInsumo', compact('Insumo'));
     }
 
     /**
@@ -83,7 +79,10 @@ class insumoCtrl extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Insumo = insumo::find($id);
+        $Insumo->fill($request);
+        $Insumo->save();
+        return view('Nav');
     }
 
     /**
@@ -94,6 +93,9 @@ class insumoCtrl extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Insumo = insumo::find($id);
+        $Insumo->delete();
+        $Insumo = insumo::all();
+        return view('Nav');
     }
 }

@@ -15,7 +15,7 @@ class servicioCtrl extends Controller
     public function index()
     {
         $Servicios=servicio::all();
-        return view('showServicio', compact('Servicios'));
+        return view('indexServicio', compact('Servicios'));
     }
 
     /**
@@ -42,14 +42,12 @@ class servicioCtrl extends Controller
             $file->move(public_path().'/imgSrv/', $name);
         }
             $newServicio = new servicio();
-            $newServicio->Mnto = $request->input('Mnto');
-            $newServicio->porcentUso = $request->input('porcentUso');
-            $newServicio->prioridad = $request->input('prioridad');//gregarlo como boton en el frm y como campo en elmigration
+            $newServicio->Nombre_serv = $request->input('Nombre_serv');
+            $newServicio->Descripcion = $request->input('Descripcion');
+            $newServicio->Precio = $request->input('Precio');//gregarlo como boton en el frm y como campo en elmigration
             $newServicio->imagenServicio = $name;
             $newServicio->save();
-
-        $Equipos = Equipo::all();
-        return view('Nav.Navegacion');
+        return view('welcome');
     }
 
     /**
@@ -60,7 +58,9 @@ class servicioCtrl extends Controller
      */
     public function show($id)
     {
-        //
+        $Servicio=servicio::find($id);
+        //dd($Servicios);
+        return view('showServicio',compact('Servicio'));
     }
 
     /**
@@ -69,9 +69,10 @@ class servicioCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $Servicio=servicio::find($id);
+        return view('editServicio', compact('Servicio'));
     }
 
     /**
@@ -83,7 +84,16 @@ class servicioCtrl extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Servicio = servicio::find($id);
+        $Servicio->fill($request->except('imagenServicio'));
+        if($request->hasFile('imagenServicio')){
+            $file = $request->file('imagenServicio');
+            $name = time().$file->getClientOriginalName();
+            $Servicio->imagenServicio = $name;
+            $file->move(public_path().'/imgSrv/', $name);
+        }
+        $Servicio->save();
+        return view('Nav');
     }
 
     /**
@@ -94,6 +104,9 @@ class servicioCtrl extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Servicio = servicio::find($id);
+        $Servicio->delete();
+        $Servicio = servicio::all();
+        return view('Nav');
     }
 }

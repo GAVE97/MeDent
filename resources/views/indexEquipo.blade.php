@@ -1,0 +1,27 @@
+@extends('layouts.appComun')
+@section('title', 'Todos los equipos')
+
+@section('content')
+<div class="container">    
+    <div class="row">
+        @foreach($Equipos as $Equipo)
+        <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 mt-4" >
+                <div class="card text center" style="width: 14rem;">
+                    <img src="../imgInv/{{$Equipo->imagenEquipo}}" height="200" width="200" class="card-img-top" alt="Imagen no soportada por el navegador">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$Equipo->Nombre}}</h5>
+                        <p class="card-text"> Modelo: {{$Equipo->Modelo}}<br>
+                                            Fabricante: {{$Equipo->Marca}}<br>
+                                            Estatus: {{$Equipo->Estatus}}<br>
+                                            ID: {{$Equipo->ID_inventario}}<br>
+                                            Área: {{$Equipo->Area}}<br>
+                                            Ubicación: {{$Equipo->Ubicacion}}
+                        </p>
+                        <a href="/Equipos/{{$Equipo->id}}" class="btn btn-primary">Ir al equipo</a>
+                    </div>
+                </div> 
+        </div>
+        @endforeach    
+    </div>
+</div>
+@endsection

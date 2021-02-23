@@ -15,7 +15,7 @@ class citaCtrl extends Controller
     public function index()
     {
         $Citas=cita::all();
-        return view('showCita', compact('Citas'));
+        return view('indexCita', compact('Citas'));
     }
 
     /**
@@ -53,7 +53,8 @@ class citaCtrl extends Controller
      */
     public function show($id)
     {
-        //
+        $Cita=cita::find($id);
+        return view('showCita', compact('Cita'));
     }
 
     /**
@@ -64,7 +65,8 @@ class citaCtrl extends Controller
      */
     public function edit($id)
     {
-        //
+        $Cita=cita::find($id);
+        return view('editCita', compact('Cita'));
     }
 
     /**
@@ -76,7 +78,10 @@ class citaCtrl extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Cita = cita::find($id);
+        $Cita->fill($request);
+        $Cita->save();
+        return view('Nav');
     }
 
     /**
@@ -87,6 +92,9 @@ class citaCtrl extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Cita = cita::find($id);
+        $Cita->delete();
+        $Cita = cita::all();
+        return view('Nav');
     }
 }

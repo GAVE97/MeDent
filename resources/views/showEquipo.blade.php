@@ -1,46 +1,34 @@
 @extends('layouts.appComun')
-@section('title', 'Agregar servicio')
+@section('title', 'Mostrar equipo')
 
 @section('content')
-
-<!-- INDICACIONES DE LA VISTA-->
-<div class="container-sm alert alert-primary" role="alert">
-  <h4 class="alert-heading">AÑADIR UN NUEVO SERVICIO DENTAL</h4>
-  <p> EN esta seccion se deberan agregar los datos de un servicio nuevo que se ofresca a los pacientes</p>
-  <hr>
-  <p class="mb-0"> ¡Sea cuidadoso! verifique los datos antes de guardar.</p>
-</div>
-
-<!-- Formulario para agregar equipo -->
-<form class="form-group" method="POST" action="/Servicios" enctype="multipart/form-data">
-@csrf
-
-<!-- Información del equipo-->
-<div class="container-sm">
-    
-    <div class="col"> 
-        <label class="mt-2">Nombre del servicio</label>
-        <input type="string" name="ID_inventario" pattern="[A-Z a-z 0-9 áéíóúÑñüäàè\s]*" class="form-control" placeholder="Número de identificación de inventario" required>
-
-        <label class="mt-2">Descripción</label>
-        <input type="string" name="Nombre" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Nombre del equipo" required>
-        
-        <label class="mt-2">Precio</label>
-        <input type="string" name="Area" pattern="[0-9]"  class="form-control" placeholder="Área de asignada para el equipo" required>
-        
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto" aling="text-center"><br/>
-                <label>Imagen del servicio</label> <br/>
-                <input type="file" name="imagenEquipo" required><br/><br/>
-            </div>           
+<div class="container">    
+        <div class="card" style="width: 18rem;">
+        <img src="../imgInv/{{$Equipo->imagenEquipo}}"class="card-img-top"  alt="Imagen no soportada por el navegador">
+        <div class="card-body">
+            <h5 class="card-title">{{$Equipo->Nombre}}</h5>
         </div>
-        <!-- Guardado de imagen del equipo -->
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto" aling="text-center">
-                <button type="submit" class="btn btn-primary">Guardar</button>   
-            </div>           
+        
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: {{$Equipo->id}}</li>
+            <li class="list-group-item">Área: {{$Equipo->Area}}</li>
+            <li class="list-group-item">Tipo: {{$Equipo->Tipo}}</li>
+            <li class="list-group-item">Fabricante: {{$Equipo->Marca}}</li>
+            <li class="list-group-item">Modelo: {{$Equipo->Modelo}}</li>
+            <li class="list-group-item">No. serie: {{$Equipo->Num_de_serie}}</li>
+            <li class="list-group-item">Ubicación: {{$Equipo->Ubicacion}}</li>
+            <li class="list-group-item">Estatus operativo: {{$Equipo->Estatus}}</li>
+            <li class="list-group-item">Consumo electrico: {{$Equipo->Consumo_electrico}}</li>
+            <li class="list-group-item">Garantia: {{$Equipo->vencimientoGarantia}}</li>
+        </ul>
+            <div class="card-body">
+                <a href="/Equipos/{{$Equipo->id}}/edit" class="btn btn-primary">Editar</a>
+                <form class="form-group" method="POST" action="/Equipos/{{$Equipo->id}}" enctype="multipart/form-data">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+                </form>
+            </div>
         </div>
-    </div>
-</div>
-</form>
+</div>   
 @endsection

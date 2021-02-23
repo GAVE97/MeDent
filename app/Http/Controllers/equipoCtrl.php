@@ -15,7 +15,7 @@ class equipoCtrl extends Controller
     public function index()
     {
         $Equipos=equipo::all();
-        return view('showEquipo', compact('Equipos'));
+        return view('indexEquipo', compact('Equipos'));
     }
 
     /**
@@ -39,17 +39,24 @@ class equipoCtrl extends Controller
         if($request->hasFile('imagenEquipo')){
             $file = $request->file('imagenEquipo');
             $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/imgSrv/', $name);
+            $file->move(public_path().'/imgInv/', $name);
         }
             $newEquipo = new equipo();
-            $newEquipo->Mnto = $request->input('Mnto');
-            $newEquipo->porcentUso = $request->input('porcentUso');
-            $newEquipo->prioridad = $request->input('prioridad');//gregarlo como boton en el frm y como campo en elmigration
+            $newEquipo->Nombre = $request->input('Nombre');
+            $newEquipo->Area = $request->input('Area');
+            $newEquipo->Tipo = $request->input('Tipo');
+            $newEquipo->Marca = $request->input('Marca');
+            $newEquipo->Modelo = $request->input('Modelo');
+            $newEquipo->Num_de_serie = $request->input('Num_de_serie');
+            $newEquipo->Ubicacion = $request->input('Ubicacion');
+            $newEquipo->Estatus = $request->input('Estatus'); 
+            $newEquipo->vencimientoGarantia = $request->input('vencimientoGarantia');
+            $newEquipo->Consumo_electrico = $request->input('Consumo_electrico');
+            $newEquipo->imagenEquipo = $request->input('imagenEquipo');
             $newEquipo->imagenEquipo = $name;
             $newEquipo->save();
 
-        $Equipos = Equipo::all();
-        return view('Nav.Navegacion');
+        return view('Nav');
     }
 
     /**
@@ -60,7 +67,8 @@ class equipoCtrl extends Controller
      */
     public function show($id)
     {
-        //
+        $Equipo=equipo::find($id);
+        return view('showEquipo', compact('Equipo'));
     }
 
     /**
@@ -71,7 +79,8 @@ class equipoCtrl extends Controller
      */
     public function edit($id)
     {
-        //
+        $Equipo=equipo::find($id);
+        return view('editEquipo', compact('Equipo'));
     }
 
     /**
@@ -83,7 +92,16 @@ class equipoCtrl extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Equipo = equipo::find($id);
+        $Equipo->fill($request->except('imagenEquipo'));
+        if($request->hasFile('imagenEquipo')){
+            $file = $request->file('imagenEquipo');
+            $name = time().$file->getClientOriginalName();
+            $Equipo->imagenEquipo = $name;
+            $file->move(public_path().'/imgInv/', $name);
+        }
+        $Equipo->save();
+        return view('Nav');
     }
 
     /**
@@ -94,6 +112,10 @@ class equipoCtrl extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Equipo = equipo::find($id);
+        //dd($Equipo);
+        $Equipo->delete();
+        $Equipo = equipo::all();
+        return view('Nav');
     }
 }

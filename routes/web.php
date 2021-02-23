@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\servicio;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $Servicios=servicio::all();
+    return view('welcome', compact('Servicios'));
 });
+
+Route::view('navegacion', 'Nav')->name('navegacion');
 
 Route::resource('Servicios', App\Http\Controllers\servicioCtrl::class);
 Route::resource('Equipos', App\Http\Controllers\equipoCtrl::class);
