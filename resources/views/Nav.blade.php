@@ -15,7 +15,7 @@
         <a href="{{route('Servicios.index')}}" class="btn btn-primary my-2 mx-2 mt-2 mb-2">Todos los servicios</a></br>
         <a href="{{route('Citas.index')}}" class="btn btn-primary my-2 mx-2 mt-2 mb-2">Lista de citas</a></br>
         <a href="{{route('Insumos.index')}}" class="btn btn-primary my-2 mx-2 mt-2 mb-2">Inventario de insumos</a></br>
-        <a href="{{route('Equipos.index')}}" class="btn btn-primary my-2 mx-2 mt-2 mb-2">Inventario de quipos</a></br>
+        <a href="{{route('Equipos.index')}}" class="btn btn-primary my-2 mx-2 mt-2 mb-2">Inventario de equipos</a></br>
     </dic>
 </div>
 @endsection

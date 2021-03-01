@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\equipo;
+use App\Models\servicio;
 use Illuminate\Http\Request;
 
 class equipoCtrl extends Controller
@@ -12,13 +13,23 @@ class equipoCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $Equipos=equipo::all();
-        return view('indexEquipo', compact('Equipos'));
+        $Servicios=servicio::all();
+        
+        if(! $request->user()){
+            return view('welcome', compact('Servicios'));
+        } elseif($request->user()->authorizeRole('Admin')) {
+            return view('indexEquipo', compact('Equipos'));
+        } else {
+            return view('Nav'); 
+        }
     }
 
     /**
+     * 
+     * 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
