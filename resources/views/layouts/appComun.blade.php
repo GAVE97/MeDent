@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>MDnt-@yield('title')</title>
+		<title>MDnt @yield('title')</title>
 		
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,6 +16,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     
 	<style type="text/css">
 		.box{
@@ -76,5 +77,10 @@
             @yield('content')
       </div>
     </main>
+
+    <script  src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script> 
+    <script  src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr :: mensaje () !!}
+
   </body>
 </html>

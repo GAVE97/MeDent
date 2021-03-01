@@ -29,3 +29,5 @@ Route::resource('Citas', App\Http\Controllers\citaCtrl::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('Roles1804', App\Http\Controllers\RoleUserCtrl::class);
