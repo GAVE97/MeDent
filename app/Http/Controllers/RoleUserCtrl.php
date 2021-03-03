@@ -17,7 +17,7 @@ class RoleUserCtrl extends Controller
     {
         //$request->user()->authorizeRole(['superAdmin', 'Ingeniero']);
         $Users = User::all();   
-        return view('auth.allUsers', compact('Users'));
+        return view('allUsers', compact('Users'));
     }
 
     /**
@@ -29,7 +29,7 @@ class RoleUserCtrl extends Controller
     {
         //$request->user()->authorizeRole(['superAdmin', 'Ingeniero']); //Atorización de role
         $Users = User::all();   
-        return view('auth.newRoleUser', compact('Users'));
+        return view('newRoleUser', compact('Users'));
     }
 
     /**
@@ -46,7 +46,7 @@ class RoleUserCtrl extends Controller
         foreach($UsersNumb as $Numb){
         User::find($Numb)->roles()->attach($role);
         }
-        return view('Nav.Navegacion');
+        return view('Nav');
     }
 
     /**

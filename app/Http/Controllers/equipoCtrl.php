@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\equipo;
 use App\Models\servicio;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class equipoCtrl extends Controller
 {
@@ -16,13 +17,14 @@ class equipoCtrl extends Controller
     public function index(Request $request)
     {
         $Equipos=equipo::all();
-        $Servicios=servicio::all();
         
         if(! $request->user()){
-            return view('welcome', compact('Servicios'));
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
         } elseif($request->user()->authorizeRole('Admin')) {
             return view('indexEquipo', compact('Equipos'));
         } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
             return view('Nav'); 
         }
     }
@@ -34,9 +36,17 @@ class equipoCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('newEquipo');
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            return view('newEquipo');
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
     }
 
     /**
@@ -66,8 +76,8 @@ class equipoCtrl extends Controller
             $newEquipo->imagenEquipo = $request->input('imagenEquipo');
             $newEquipo->imagenEquipo = $name;
             $newEquipo->save();
-
-        return view('Nav');
+            Toastr::success('Los datos del equipo fueron guardados satisfactoriamente', 'Creado con exito');
+        return view('newEquipo');
     }
 
     /**
