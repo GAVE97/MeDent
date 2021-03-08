@@ -9,7 +9,7 @@
         <div class="card-header"><h4>CITA PENDIENTE</h4></div>
         <div class="card-body">
             <h5 class="card-title">Paciente: {{$Cita->Paciente}}</h5>
-            <p class="card-text"> Tipo de cita: {{$Cita->Tipo_de_cita}}<br>Fecha y hora de la cita: {{$Cita->Fecha}}<br></p>
+            <p class="card-text"> Tipo de cita: {{$Cita->Tipo_de_cita}}<br>Número del paciente: {{$Cita->Telefono}}<br>Fecha y hora de la cita: {{$Cita->Fecha}}<br></p>
             <a href="/Citas/{{$Cita->id}}/edit" class="btn btn-primary">Editar</a>
                 <form class="form-group" method="POST" action="/Citas/{{$Cita->id}}" enctype="multipart/form-data">
                     @method('DELETE')

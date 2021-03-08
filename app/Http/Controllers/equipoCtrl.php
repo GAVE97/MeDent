@@ -30,8 +30,6 @@ class equipoCtrl extends Controller
     }
 
     /**
-     * 
-     * 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -39,7 +37,7 @@ class equipoCtrl extends Controller
     public function create(Request $request)
     {
         if(! $request->user()){
-            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos, en caso de no estar registrado es necesario hacer clic en la esquina ruperior derecha en "Registrar"', 'Acceso denegado');
             return view('auth.login');
         } elseif($request->user()->authorizeRole('Admin')) {
             return view('newEquipo');
@@ -76,8 +74,8 @@ class equipoCtrl extends Controller
             $newEquipo->imagenEquipo = $request->input('imagenEquipo');
             $newEquipo->imagenEquipo = $name;
             $newEquipo->save();
-            Toastr::success('Los datos del equipo fueron guardados satisfactoriamente', 'Creado con exito');
-        return view('newEquipo');
+            Toastr::success('Los datos del equipo fueron guardados satisfactoriamente', 'Creado con exito!!');
+        return view('indexEquipo');
     }
 
     /**
@@ -86,10 +84,18 @@ class equipoCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $Equipo=equipo::find($id);
-        return view('showEquipo', compact('Equipo'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Equipo=equipo::find($id);
+            return view('showEquipo', compact('Equipo'));
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
     }
 
     /**
@@ -98,10 +104,18 @@ class equipoCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $Equipo=equipo::find($id);
-        return view('editEquipo', compact('Equipo'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Equipo=equipo::find($id);
+            return view('editEquipo', compact('Equipo'));
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
     }
 
     /**
@@ -122,7 +136,8 @@ class equipoCtrl extends Controller
             $file->move(public_path().'/imgInv/', $name);
         }
         $Equipo->save();
-        return view('Nav');
+        Toastr::success('El equipo ha sido actualizado con exito', 'Editado con exito!!');
+        return view('indexEquipo');
     }
 
     /**
@@ -131,12 +146,20 @@ class equipoCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $Equipo = equipo::find($id);
-        //dd($Equipo);
-        $Equipo->delete();
-        $Equipo = equipo::all();
-        return view('Nav');
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Equipo = equipo::find($id);
+            $Equipo->delete();
+            Toastr::success('El equipo ha sido eliminado con exito', 'Eliminado con exito!!');
+            return view('indexEquipo');
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+
     }
 }

@@ -24,6 +24,9 @@
     <div class="col"> 
         <label class="mt-2">Nombre del paciente</label>
         <input type="string" name="Paciente" pattern="[A-Z a-z 0-9 áéíóúÑñüäàè\s]*" class="form-control" placeholder="Coloque su nombre completo pra identificarlo en su cita" required>
+        
+        <label class="mt-2">Número telefónico</label>
+        <input type="string" name="Telefono" pattern="[0-9]*" class="form-control" placeholder="Coloque su número telefonico para contactarlo" required>
 
         <label class="mt-2">Razon de la cita</label>
         <input type="string" name="Tipo_de_cita" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Consulta, caries, extracción" required>

@@ -21,6 +21,9 @@
     <div class="col"> 
         <label class="mt-2">Nombre del paciente</label>
         <input type="string" name="Paciente" pattern="[A-Z a-z 0-9 áéíóúÑñüäàè\s]*" class="form-control" value="Paciente" required>
+        
+        <label class="mt-2">Número telefónico</label>
+        <input type="string" name="Telefono" pattern="[0-9]*" class="form-control" value="Telefono" required>
 
         <label class="mt-2">Razon de la cita</label>
         <input type="string" name="Tipo_de_cita" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" value="Tipo_de_cita" required>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\servicio;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class servicioCtrl extends Controller
 {
@@ -14,8 +15,9 @@ class servicioCtrl extends Controller
      */
     public function index()
     {
-        $Servicios=servicio::all();
-        return view('indexServicio', compact('Servicios'));
+            $Servicios=servicio::all();
+            return view('indexServicio', compact('Servicios'));   
+        
     }
 
     /**
@@ -23,9 +25,18 @@ class servicioCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('newServicio');
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            return view('newServicio');  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -47,7 +58,8 @@ class servicioCtrl extends Controller
             $newServicio->Precio = $request->input('Precio');//gregarlo como boton en el frm y como campo en elmigration
             $newServicio->imagenServicio = $name;
             $newServicio->save();
-        return view('welcome');
+            Toastr::success('Los datos del servicio fueron guardados satisfactoriamente', 'Creado con exito!!');
+        return view('indexServicio');
     }
 
     /**
@@ -56,11 +68,19 @@ class servicioCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $Servicio=servicio::find($id);
-        //dd($Servicios);
-        return view('showServicio',compact('Servicio'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Servicio=servicio::find($id);
+            return view('showServicio',compact('Servicio'));  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -71,8 +91,17 @@ class servicioCtrl extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $Servicio=servicio::find($id);
-        return view('editServicio', compact('Servicio'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Servicio=servicio::find($id);
+            return view('editServicio', compact('Servicio'));  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -93,6 +122,7 @@ class servicioCtrl extends Controller
             $file->move(public_path().'/imgSrv/', $name);
         }
         $Servicio->save();
+        Toastr::success('Los datos del servicio fueron editados satisfactoriamente', 'Editado con exito!!');
         return view('Nav');
     }
 
@@ -102,11 +132,20 @@ class servicioCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $Servicio = servicio::find($id);
-        $Servicio->delete();
-        $Servicio = servicio::all();
-        return view('Nav');
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Servicio = servicio::find($id);
+            $Servicio->delete();
+            Toastr::success('Los datos del servicio fueron guardados satisfactoriamente', 'Eliminado con exito!!');
+            return view('Nav');  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 }

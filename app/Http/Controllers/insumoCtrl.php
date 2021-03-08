@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\insumo;
 use Illuminate\Http\Request;
+use App\Models\servicio;
+use Brian2694\Toastr\Facades\Toastr;
 
 class insumoCtrl extends Controller
 {
@@ -12,10 +14,19 @@ class insumoCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Insumos=insumo::all();
-        return view('indexInsumo', compact('Insumos'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Insumos=insumo::all();
+            return view('indexInsumo', compact('Insumos'));  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -23,9 +34,18 @@ class insumoCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('newInsumo');
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            return view('newInsumo');  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -42,8 +62,8 @@ class insumoCtrl extends Controller
             $newInsumo->Cantidad = $request->input('Cantidad');
             $newInsumo->Caducidad = $request->input('Caducidad');
             $newInsumo->save();
-
-        return view('Nav');
+            Toastr::success('Los datos del insumo fueron guardados satisfactoriamente', 'Creado con exito!!');
+        return view('indexInsumo');
     }
 
     /**
@@ -52,10 +72,19 @@ class insumoCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $Insumo=insumo::find($id);
-        return view('showInsumo', compact('Insumo'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Insumo=insumo::find($id);
+            return view('showInsumo', compact('Insumo'));  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -64,10 +93,19 @@ class insumoCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $Insumo=insumo::find($id);
-        return view('editInsumo', compact('Insumo'));
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Insumo=insumo::find($id);
+            return view('editInsumo', compact('Insumo')); 
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 
     /**
@@ -82,6 +120,7 @@ class insumoCtrl extends Controller
         $Insumo = insumo::find($id);
         $Insumo->fill($request);
         $Insumo->save();
+        Toastr::success('Los datos del insumo fueron editados satisfactoriamente', 'Editado con exito!!');
         return view('Nav');
     }
 
@@ -91,11 +130,20 @@ class insumoCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $Insumo = insumo::find($id);
-        $Insumo->delete();
-        $Insumo = insumo::all();
-        return view('Nav');
+        if(! $request->user()){
+            Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
+            return view('auth.login');
+        } elseif($request->user()->authorizeRole('Admin')) {
+            $Insumo = insumo::find($id);
+            $Insumo->delete();
+            Toastr::success('El insumo fue eliminado satisfactoriamente', 'Eliminado con exito!!');
+            return view('Nav');  
+        } else {
+            Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
+            return view('Nav'); 
+        }
+        
     }
 }
