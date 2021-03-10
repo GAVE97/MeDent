@@ -25,7 +25,8 @@ Route::resource('Servicios', App\Http\Controllers\servicioCtrl::class);
 Route::resource('Equipos', App\Http\Controllers\equipoCtrl::class);
 Route::resource('Insumos', App\Http\Controllers\insumoCtrl::class);
 Route::resource('Citas', App\Http\Controllers\citaCtrl::class);
-
+Route::get('/redirect', [App\Http\Controllers\SocialAuthFacebookController::class, 'redirect']);
+Route::get('/callback', [App\Http\Controllers\SocialAuthFacebookController::class, 'callback']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
