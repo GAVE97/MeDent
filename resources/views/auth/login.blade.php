@@ -65,16 +65,21 @@
                             </div>
                         </div>
                     </form>
+                    <div class="container text-center">
+                        <h1>--- o ---</h1>
+                    </div>
+                    <br />
+                    <div class="container text-center">
+                        <a href="{{url('login/facebook')}}" class="btn btn-lg btn-social btn-facebook">
+                        <i class="fa fa-facebook fa-fw"></i> Iniciar con Facebook
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-            <br />
-            <div class="form-group">
-            <div class="col-md-8 col-md-offset-4">
-                <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Facebook</a>
-            </div>
-            </div>
+            
 
 
 

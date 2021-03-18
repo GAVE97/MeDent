@@ -22,6 +22,41 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css"> <!--BrianToastr-->
 
+
+    <!--boton facebook-->
+    <style type="text/css">
+    .btn-facebook {
+        color: #fff;
+        background-color: #3b5998;
+        border-color: rgba(0,0,0,0.2);
+    }
+    
+    .btn-social {
+        position: relative;
+        padding-left: 44px;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .btn-social:hover {
+        color: #eee;
+    }
+    
+    .btn-social :first-child {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+        padding: 7px;
+        font-size: 1.6em;
+        text-align: center;
+        border-right: 1px solid rgba(0,0,0,0.2);
+    }
+    </style>
+
 </head>
 <body>
 

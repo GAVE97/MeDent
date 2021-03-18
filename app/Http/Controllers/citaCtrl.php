@@ -23,6 +23,7 @@ class citaCtrl extends Controller
           $Citas=cita::all();
         return view('indexCita', compact('Citas'));  
         } else {
+            dd($request);
             Toastr::error('Su perfil de usuario no cumple con los permisos requeridos para ver el inventario de equipos.', 'Acceso denegado');
             return view('Nav'); 
         }

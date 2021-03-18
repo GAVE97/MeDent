@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Models\SocialProfile;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -53,7 +55,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'facebook_id'
     ];
 
     /**
@@ -74,4 +75,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relacion uno a muchos
+
+    public function socialProfiles(){
+        return $this->hasMany(SocialProfile::class);
+    }
 }
