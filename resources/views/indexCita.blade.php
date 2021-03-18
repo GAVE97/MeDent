@@ -1,6 +1,14 @@
 @extends('layouts.appComun')
 @section('title', 'Todas las citas')
 
+@section('search')
+<form action="{{route('filtrarCitas')}}" class="form-inline my-2 my-lg-0" method="POST">
+	@csrf
+  <input class="form-control mr-sm-2" name="valor" id="valor" type="search" placeholder="Filtrar por..." aria-label="Search" aling="center">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+@endsection
+
 @section('content')
 <!-- aqui va la secion de promocion de los servicios-->
 <div class="row justify-content-md-center">

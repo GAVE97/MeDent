@@ -25,8 +25,11 @@ Route::resource('Servicios', App\Http\Controllers\servicioCtrl::class);
 Route::resource('Equipos', App\Http\Controllers\equipoCtrl::class);
 Route::resource('Insumos', App\Http\Controllers\insumoCtrl::class);
 Route::resource('Citas', App\Http\Controllers\citaCtrl::class);
-//Route::get('login/redirect', [App\Http\Controllers\SocialAuthFacebookController::class, 'redirect']);
-//Route::get('login/callback', [App\Http\Controllers\SocialAuthFacebookController::class, 'callback']);
+
+Route::post('/filtro_Servicios', 'App\Http\Controllers\servicioCtrl@filtrarServicios')->name('filtrarServicios');
+Route::post('/filtro_Equipos', 'App\Http\Controllers\equipoCtrl@filtrarEquipos')->name('filtrarEquipos');
+Route::post('/filtro_Insumos', 'App\Http\Controllers\insumoCtrl@filtrarInsumos')->name('filtrarInsumos');
+Route::post('/filtro_Citas', 'App\Http\Controllers\citaCtrl@filtrarCitas')->name('filtrarCitas');
 
 Auth::routes();
 

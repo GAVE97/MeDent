@@ -148,4 +148,11 @@ class servicioCtrl extends Controller
         }
         
     }
+
+    public function filtrarServicios(Request $request)
+    {
+        $valor = $request->valor;
+        $Servicios = servicio::where('Nombre_serv','LIKE',$request->valor)->orWhere('Descripcion','LIKE',$request->valor)->orWhere('Precio','LIKE',$request->valor)->get();
+        return view('indexServicio',compact('Servicios'));
+    }
 }

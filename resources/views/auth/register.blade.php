@@ -69,6 +69,17 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="container text-center">
+                        <h1>--- o ---</h1>
+                    </div>
+                    <br />
+                    <div class="container text-center">
+                        <a href="{{url('login/facebook')}}" class="btn btn-lg btn-social btn-facebook">
+                        <i class="fa fa-facebook fa-fw"></i> Registrarse con Facebook
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>

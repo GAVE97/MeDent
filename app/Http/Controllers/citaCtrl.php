@@ -58,7 +58,7 @@ class citaCtrl extends Controller
     public function store(Request $request)
     {
         $newCita = new cita();
-        $newCita->Paciente = $request->input('Paciente');
+        $newCita->Paciente = $request->user()->name;
         $newCita->Telefono = $request->input('Telefono');
         $newCita->Tipo_de_cita = $request->input('Tipo_de_cita');
         $newCita->Fecha = $request->input('Fecha');
@@ -81,7 +81,7 @@ class citaCtrl extends Controller
         }
         elseif(! $request->user()){
             Toastr::warning('Es necesario iniciar sesión para validar el acceso a los datos', 'Acceso denegado');
-            return view('auth.login');
+            return view('showCita', compact('Cita'));
         } elseif($request->user()->authorizeRole('Admin')) {
             return view('showCita', compact('Cita'));  
         } else {
@@ -148,5 +148,12 @@ class citaCtrl extends Controller
             return view('Nav'); 
         }
         
+    }
+
+    public function filtrarCitas(Request $request)
+    {
+        $valor = $request->valor;
+        $Citas = cita::where('Paciente','LIKE',$request->valor)->orWhere('Telefono','LIKE',$request->valor)->orWhere('Tipo_de_cita','LIKE',$request->valor)->orWhere('Fecha','LIKE',$request->valor)->get();
+        return view('Equipo.Inventario',compact('Citas'));
     }
 }

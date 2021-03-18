@@ -146,4 +146,11 @@ class insumoCtrl extends Controller
         }
         
     }
+
+    public function filtrarInsumos(Request $request)
+    {
+        $valor = $request->valor;
+        $Insumos = insumo::where('Nombre','LIKE',$request->valor)->orWhere('Tipo','LIKE',$request->valor)->orWhere('Cantidad','LIKE',$request->valor)->orWhere('Caducidad','LIKE',$request->valor)->get();
+        return view('indexInsumo',compact('Insumos'));
+    }
 }

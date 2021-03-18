@@ -162,4 +162,21 @@ class equipoCtrl extends Controller
         }
 
     }
+
+    public function filtrarEquipos(Request $request)
+    {
+        $valor = $request->valor;
+        $Equipos = equipo::where('Nombre','LIKE',$request->valor)
+                        ->orWhere('Modelo','LIKE',$request->valor)
+                        ->orWhere('Area','LIKE',$request->valor)
+                        ->orWhere('Tipo','LIKE',$request->valor)
+                        ->orWhere('Marca','LIKE',$request->valor)
+                        ->orWhere('Num_de_serie','LIKE',$request->valor)
+                        ->orWhere('Ubicacion','LIKE',$request->valor)
+                        ->orWhere('Estatus','LIKE',$request->valor)
+                        ->orWhere('vencimientoGarantia','LIKE',$request->valor)
+                        ->orWhere('Consumo_electrico','LIKE',$request->valor)
+                        ->get();
+        return view('indexEquipo',compact('Equipos'));
+    }
 }

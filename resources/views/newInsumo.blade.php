@@ -20,13 +20,13 @@
     
     <div class="col"> 
         <label class="mt-2">Nombre</label>
-        <input type="string" name="Nombre" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Nombre del equipo" required>
+        <input type="string" name="Nombre" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Nombre del insumo" required>
         
         <label class="mt-2">Tipo</label>
-        <input type="string" name="Tipo" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Área de asignada para el equipo" required>
+        <input type="string" name="Tipo" pattern="[A-Z a-z áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Tipo de insumo" required>
         
         <label class="mt-2">Cantidad</label>
-        <input type="string" name="Cantidad" pattern="[0-9]*"  class="form-control" placeholder="Área de asignada para el equipo" required>
+        <input type="string" name="Cantidad" pattern="[0-9]*"  class="form-control" placeholder="Cantidad (piezas, mililitros, miligramos, etc.)" required>
         
         <label class="mt-2">Caducidad</label> <!-- que tenga fecha -->
         <div class="row ml-2 mb-2">

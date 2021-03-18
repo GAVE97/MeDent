@@ -31,7 +31,7 @@
         <input type="string" name="Tipo" pattern="[a-zA-Z0-9._%+-  áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Tipo de equipo" required>
 
         <label class="mt-2">Marca</label>
-        <input type="string" name="Marca" pattern="[a-zA-Z0-9._%+-  áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Tipo de equipo" required>
+        <input type="string" name="Marca" pattern="[a-zA-Z0-9._%+-  áéíóúÑñüäàè\s]*"  class="form-control" placeholder="Marca del equipo" required>
 
         <label class="mt-2">Modelo</label>
         <input type="string" name="Modelo" pattern="[a-zA-Z0-9._%+-  áéíóúÑñüäàè\s]*" class="form-control" placeholder="Modelo del equipo" required>
